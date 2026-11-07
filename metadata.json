@@ -1,0 +1,6 @@
+{
+  "name": "Barbearia Invictus - Jundiaí SP",
+  "description": "Protótipo comercial e landing page de alto padrão para a Barbearia Invictus em Jundiaí, SP. Cortes, barba, química e atendimento de excelência.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

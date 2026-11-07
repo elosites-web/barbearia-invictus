@@ -1,0 +1,37 @@
+# Barbearia Invictus — pacote de imagens para Google AI Studio
+
+Este pacote foi organizado a partir do ZIP enviado. Os arquivos foram renomeados para facilitar a identificação e as imagens JPEG foram regravadas com otimização, sem aumentar dimensões nem recortar os cortes.
+
+## Como usar
+
+1. Anexe ao Google AI Studio as imagens da pasta `fotos-para-o-site`.
+2. Anexe também `00-contato-visual-das-fotos.jpg` para facilitar a identificação das fotos.
+3. Anexe os arquivos de `referencias-nao-usar-como-foto-da-galeria` como material de consulta de identidade, horário e avaliações — não os use como imagens da galeria.
+4. No prompt, instrua o AI Studio a priorizar as três fotos de alta resolução (arquivos 01, 02 e 03). As fotos 04 a 09 vieram em baixa resolução do Google e devem aparecer apenas como miniaturas pequenas, sem ampliação ou uso como hero.
+
+## Fotos para o site
+
+- `01-degrade-com-desenho-lateral.jpg` — 1440 × 1440px. Alta resolução — foto principal de corte com desenho lateral. Tamanho otimizado: 281,633 bytes.
+- `02-degrade-com-topo-texturizado.jpg` — 1440 × 1440px. Alta resolução — degradê com topo texturizado. Tamanho otimizado: 386,460 bytes.
+- `03-corte-platinado-com-degrade.jpg` — 1440 × 1439px. Alta resolução — corte platinado com degradê. Tamanho otimizado: 378,107 bytes.
+- `04-corte-com-desenho-lateral-google.jpg` — 202 × 270px. Baixa resolução — foto de referência do Google; usar apenas em miniatura. Tamanho otimizado: 19,675 bytes.
+- `05-corte-cacheado-com-degrade-google.jpg` — 203 × 451px. Baixa resolução — foto de referência do Google; usar apenas em miniatura. Tamanho otimizado: 34,389 bytes.
+- `06-corte-com-degrade-google.jpg` — 203 × 451px. Baixa resolução — foto de referência do Google; usar apenas em miniatura. Tamanho otimizado: 24,703 bytes.
+- `07-corte-com-risco-na-lateral-google.jpg` — 203 × 360px. Baixa resolução — foto de referência do Google; usar apenas em miniatura. Tamanho otimizado: 28,553 bytes.
+- `08-corte-infantil-com-desenho-google.jpg` — 203 × 360px. Baixa resolução — foto de referência do Google; usar apenas em miniatura e confirmar autorização para uso de imagem de menor. Tamanho otimizado: 28,060 bytes.
+- `09-corte-platinado-com-topo-texturizado-google.jpg` — 203 × 451px. Baixa resolução — foto de referência do Google; usar apenas em miniatura. Tamanho otimizado: 29,249 bytes.
+
+## Referências (não usar diretamente como fotos da galeria)
+
+- `01-perfil-instagram-identidade-e-contato.jpg`: captura de perfil; referência para cores, emblema, nome e contato.
+- `02-captura-horarios-google-confirmar-com-o-proprietario.jpg`: horários extraídos da captura; confirmar com Kauan antes de publicar, pois podem divergir do site antigo.
+- `03-captura-avaliacao-google-referencia.jpg` e `04-captura-post-com-avaliacao-referencia.jpg`: referências visuais de avaliações. Não inserir as capturas inteiras no site; usar apenas os textos de avaliações fornecidos no briefing.
+- `05-emblema-invictus-recorte-de-referencia.jpg`: recorte pequeno do emblema do perfil. É apenas referência visual; solicitar o arquivo oficial em alta resolução antes da publicação. Não redesenhar nem distorcer o símbolo.
+
+## Limitações e cuidados
+
+- Os arquivos 04 a 09 têm resolução nativa baixa (aprox. 200px de largura). Não foram ampliados artificialmente, pois isso não cria detalhes reais.
+- As fotos retratam pessoas, incluindo uma criança. Antes de publicar o site, confirme que a barbearia possui autorização adequada para uso das imagens. Para a foto de menor, confirme autorização do responsável legal.
+- Confirme também com a barbearia os direitos de uso das fotos, especialmente as capturadas de plataformas de terceiros.
+- A arte sobre “barba italiana” foi deixada de fora porque é uma peça gráfica genérica, não uma foto real de serviço da barbearia.
+- Arquivos repetidos em tamanhos diferentes foram removidos; foi mantida uma versão por fotografia.
