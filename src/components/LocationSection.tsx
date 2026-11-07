@@ -8,9 +8,9 @@ import {
   Instagram,
   Facebook,
   ExternalLink,
-  MessageCircle,
   AlertCircle,
 } from "lucide-react";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 
 export const LocationSection: React.FC = () => {
   return (
@@ -122,7 +122,7 @@ export const LocationSection: React.FC = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-[#e5e7eb] hover:text-[#d4af37] transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4 text-[#d4af37] shrink-0" />
+                  <WhatsAppIcon className="w-4 h-4 text-[#d4af37] shrink-0" />
                   <span>WhatsApp: {BARBEARIA_CONFIG.phoneFormatted}</span>
                 </a>
 

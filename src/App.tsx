@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Header } from "./components/Header";
 import { ScrollProgressBar } from "./components/ScrollProgressBar";
 import { Hero } from "./components/Hero";
+import { FadeInSection } from "./components/FadeInSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { GallerySection } from "./components/GallerySection";
 import { ExperienceSection } from "./components/ExperienceSection";
@@ -27,26 +28,38 @@ export default function App() {
 
       {/* Main Content Sections */}
       <main>
-        {/* Section 2: Hero */}
+        {/* Section 2: Hero (Immediate display) */}
         <Hero />
 
-        {/* Section 3: Serviços e Valores */}
-        <ServicesSection />
+        {/* Section 3: Serviços e Valores (Fade in) */}
+        <FadeInSection>
+          <ServicesSection />
+        </FadeInSection>
 
-        {/* Section 4: Nosso Trabalho (Galeria com Fotos Reais) */}
-        <GallerySection />
+        {/* Section 4: Nosso Trabalho / Galeria (Fade in) */}
+        <FadeInSection>
+          <GallerySection />
+        </FadeInSection>
 
-        {/* Section 5: A Experiência Invictus (Comodidades) */}
-        <ExperienceSection />
+        {/* Section 5: A Experiência Invictus (Fade in) */}
+        <FadeInSection>
+          <ExperienceSection />
+        </FadeInSection>
 
-        {/* Section 6: Avaliações dos Clientes */}
-        <ReviewsSection />
+        {/* Section 6: Avaliações dos Clientes (Fade in) */}
+        <FadeInSection>
+          <ReviewsSection />
+        </FadeInSection>
 
-        {/* Section 7: Localização, Horários e Contato */}
-        <LocationSection />
+        {/* Section 7: Localização, Horários e Contato (Fade in) */}
+        <FadeInSection>
+          <LocationSection />
+        </FadeInSection>
 
-        {/* Section FAQ */}
-        <FaqSection />
+        {/* Section FAQ (Fade in) */}
+        <FadeInSection>
+          <FaqSection />
+        </FadeInSection>
       </main>
 
       {/* Section 8: Footer */}

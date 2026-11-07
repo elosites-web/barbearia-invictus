@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { COMMERCIAL_CHECKLIST, BARBEARIA_CONFIG } from "../data/barbeariaData";
 import { X, CheckCircle2, Clock, AlertTriangle, ShieldCheck, ArrowRight } from "lucide-react";
 
@@ -11,6 +11,23 @@ export const CommercialChecklistModal: React.FC<CommercialChecklistModalProps> =
   isOpen,
   onClose,
 }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (

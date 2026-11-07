@@ -1,6 +1,7 @@
 import React from "react";
 import { BARBEARIA_CONFIG } from "../data/barbeariaData";
-import { Instagram, Facebook, MessageCircle, Mail, MapPin } from "lucide-react";
+import { Instagram, Facebook, Mail, MapPin } from "lucide-react";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 
 interface FooterProps {
   onOpenPrivacyModal: () => void;
@@ -80,7 +81,7 @@ export const Footer: React.FC<FooterProps> = ({
                 className="w-9 h-9 rounded-lg bg-[#141720] hover:bg-[#d4af37] text-[#9ca3af] hover:text-[#0b0c10] border border-[#232734] flex items-center justify-center transition-colors"
                 aria-label="WhatsApp da Barbearia Invictus"
               >
-                <MessageCircle className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -135,7 +136,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <span>{BARBEARIA_CONFIG.address.full}</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <MessageCircle className="w-4 h-4 text-[#d4af37] shrink-0" />
+                <WhatsAppIcon className="w-4 h-4 text-[#d4af37] shrink-0" />
                 <span>WhatsApp: {BARBEARIA_CONFIG.phoneFormatted}</span>
               </li>
               <li className="flex items-center gap-2.5">

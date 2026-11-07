@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BARBEARIA_CONFIG } from "../data/barbeariaData";
-import { Menu, X, MessageCircle, Calendar } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 
 interface HeaderProps {
   onOpenCommercialModal: () => void;
@@ -100,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-[#0d0f12] bg-[#d4af37] hover:bg-[#ecc94b] active:scale-95 transition-all rounded-md shadow-sm whitespace-nowrap"
             >
-              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <WhatsAppIcon className="w-4 h-4 shrink-0" />
               <span className="hidden sm:inline">AGENDAR HORÁRIO</span>
               <span className="sm:hidden">AGENDAR</span>
             </a>
@@ -142,7 +143,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold text-[#0d0f12] bg-[#d4af37] rounded-md shadow-md"
               >
-                <MessageCircle className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
                 <span>Agendar pelo WhatsApp</span>
               </a>
 

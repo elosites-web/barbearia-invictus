@@ -1,6 +1,7 @@
 import React from "react";
 import { BARBEARIA_CONFIG, GALLERY_PHOTOS } from "../data/barbeariaData";
-import { MessageCircle, ArrowRight, MapPin, Award, Clock } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 
 export const Hero: React.FC = () => {
   const highResHeroPhoto = GALLERY_PHOTOS[0]; // 01-degrade-com-desenho-lateral
@@ -53,7 +54,7 @@ export const Hero: React.FC = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-7 py-3.5 text-sm font-semibold text-[#0d0f12] bg-[#d4af37] hover:bg-[#ecc94b] active:scale-[0.98] transition-all rounded-md shadow-lg shadow-[#d4af37]/20 whitespace-nowrap group"
               >
-                <MessageCircle className="w-5 h-5 fill-current" />
+                <WhatsAppIcon className="w-5 h-5 shrink-0" />
                 <span>AGENDAR PELO WHATSAPP</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>

@@ -1,6 +1,7 @@
 import React from "react";
 import { BARBEARIA_CONFIG, SERVICES } from "../data/barbeariaData";
-import { MessageCircle, Scissors, Sparkles, Check, Info } from "lucide-react";
+import { Scissors, Sparkles, Info } from "lucide-react";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 
 export const ServicesSection: React.FC = () => {
   return (
@@ -91,7 +92,7 @@ export const ServicesSection: React.FC = () => {
                         : "bg-[#181b22] hover:bg-[#222631] text-[#e5e7eb] border border-[#d4af37]/30 hover:border-[#d4af37]/60"
                     }`}
                   >
-                    <MessageCircle className="w-4 h-4 shrink-0 fill-current" />
+                    <WhatsAppIcon className="w-4 h-4 shrink-0" />
                     <span>AGENDAR ESTE SERVIÇO</span>
                   </a>
                 </div>
