@@ -41,17 +41,402 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Card glass / surface */
+/* =========================================================================
+   SMOKED GLASSMORPHISM CARDS (Vidro Fumê / Degradê Translúcido / Alto Contraste)
+   Aparência nítida de vidro fumê chanfrado, gradiente translúcido e reflexo de luz superior
+   ========================================================================= */
+.card-smoke-glass,
 .card-dark {
-  background: linear-gradient(180deg, rgba(26, 29, 36, 0.7) 0%, rgba(17, 19, 24, 0.9) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.12);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(24, 29, 41, 0.60) 35%,
+    rgba(13, 16, 24, 0.78) 100%
+  ) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.32) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.26) !important;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.45),
+    0 16px 36px -8px rgba(0, 0, 0, 0.72),
+    0 0 18px -2px rgba(212, 175, 55, 0.12) !important;
 }
 
+.card-smoke-glass-hover,
 .card-dark-hover {
-  transition: all 0.25s ease-out;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background 0.25s ease;
 }
+
+.card-smoke-glass-hover:hover,
 .card-dark-hover:hover {
-  border-color: rgba(212, 175, 55, 0.35);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(30, 36, 52, 0.72) 35%,
+    rgba(17, 21, 31, 0.88) 100%
+  ) !important;
+  border-color: rgba(212, 175, 55, 0.65) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.35),
+    0 22px 46px -10px rgba(0, 0, 0, 0.85),
+    0 0 28px 0 rgba(212, 175, 55, 0.25) !important;
+}
+
+/* =========================================================================
+   ANIMATED ICONS (Micro-interações e Animações em TODOS os Ícones)
+   ========================================================================= */
+@keyframes icon-float-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3.5px);
+  }
+}
+
+@keyframes icon-pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(212, 175, 55, 0));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.65));
+  }
+}
+
+@keyframes icon-wiggle-soft {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-7deg);
+  }
+  75% {
+    transform: rotate(7deg);
+  }
+}
+
+@keyframes calendar-beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.22) rotate(-6deg);
+  }
+  28% {
+    transform: scale(1.1) rotate(6deg);
+  }
+  42% {
+    transform: scale(1.18) rotate(-3deg);
+  }
+  56% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes star-shimmer {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+    filter: drop-shadow(0 0 5px #fef08a);
+  }
+}
+
+.animate-icon-float {
+  animation: icon-float-gentle 3.2s ease-in-out infinite;
+}
+
+.animate-icon-pulse {
+  animation: icon-pulse-glow 2.5s ease-in-out infinite;
+}
+
+.animate-icon-wiggle {
+  animation: icon-wiggle-soft 3.6s ease-in-out infinite;
+}
+
+.animate-calendar-beat {
+  animation: calendar-beat 3.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+.animate-star-shimmer {
+  animation: star-shimmer 2.2s ease-in-out infinite;
+}
+
+/* Interactive icon hover class */
+.icon-interactive {
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+  will-change: transform;
+}
+
+*:hover > .icon-interactive,
+.icon-interactive:hover {
+  transform: scale(1.18) rotate(-4deg);
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+}
+
+@keyframes nav-subtle-spin-pulse {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.24) rotate(8deg);
+  }
+  100% {
+    transform: scale(1.18) rotate(4deg);
+  }
+}
+
+/* =========================================================================
+   3D TACTILE BUTTONS (Sensação de Clique / Botões Saltados e Pressionados)
+   ========================================================================= */
+.btn-3d,
+button:not(.no-3d),
+a.btn-3d,
+a[role="button"]:not(.no-3d) {
+  --btn-depth-color: #8c671a;
+  --btn-depth-shadow: rgba(0, 0, 0, 0.45);
+  position: relative;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 0 var(--btn-depth-color), 0 6px 14px var(--btn-depth-shadow);
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.15s ease,
+              background-color 0.2s ease;
+  user-select: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.btn-3d:hover,
+button:not(.no-3d):hover,
+a.btn-3d:hover,
+a[role="button"]:not(.no-3d):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 0 var(--btn-depth-color), 0 8px 18px var(--btn-depth-shadow);
+}
+
+/* Active or Persistently Pressed state */
+.btn-3d:active,
+button:not(.no-3d):active,
+a.btn-3d:active,
+a[role="button"]:not(.no-3d):active,
+.btn-3d[data-pressed="true"],
+button:not(.no-3d)[data-pressed="true"],
+a.btn-3d[data-pressed="true"],
+a[role="button"]:not(.no-3d)[data-pressed="true"],
+.btn-pressed {
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 var(--btn-depth-color), inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+  filter: brightness(0.92);
+}
+
+/* Gold Button 3D Variant */
+.btn-3d-gold,
+button.btn-3d-gold,
+a.btn-3d-gold {
+  --btn-depth-color: #795711;
+  --btn-depth-shadow: rgba(212, 175, 55, 0.35);
+}
+
+/* Dark Button 3D Variant */
+.btn-3d-dark,
+button.btn-3d-dark,
+a.btn-3d-dark {
+  --btn-depth-color: #0c0e12;
+  --btn-depth-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* Social Media Button Official 3D Variants */
+.btn-3d-instagram {
+  --btn-depth-color: #9b1950;
+  --btn-depth-shadow: rgba(225, 48, 108, 0.35);
+}
+
+.btn-3d-whatsapp {
+  --btn-depth-color: #128c3e;
+  --btn-depth-shadow: rgba(37, 211, 102, 0.35);
+}
+
+.btn-3d-facebook {
+  --btn-depth-color: #0c56b8;
+  --btn-depth-shadow: rgba(24, 119, 242, 0.35);
+}
+
+.btn-3d-google {
+  --btn-depth-color: #2b6cb0;
+  --btn-depth-shadow: rgba(66, 133, 244, 0.35);
+}
+
+/* =========================================================================
+   FLOATING WHATSAPP SPRING-BOUNCE ANIMATION
+   ========================================================================= */
+@keyframes spring-bounce-in {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.65);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.1);
+  }
+  70% {
+    transform: translateY(4px) scale(0.96);
+  }
+  88% {
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-spring-bounce {
+  animation: spring-bounce-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* =========================================================================
+   SCROLL PROGRESS BAR: SCISSORS & RAZOR ANIMATIONS
+   ========================================================================= */
+/* Hair Cutting Scissors: Blades Opening and Snipping */
+@keyframes scissor-snip-upper {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-18deg);
+  }
+}
+
+@keyframes scissor-snip-lower {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(18deg);
+  }
+}
+
+.animate-snip-upper {
+  animation: scissor-snip-upper 0.28s ease-in-out infinite;
+  transform-origin: 12px 12px;
+}
+
+.animate-snip-lower {
+  animation: scissor-snip-lower 0.28s ease-in-out infinite;
+  transform-origin: 12px 12px;
+}
+
+/* Hair Cutting Scissors Horizontal: Blades Opening and Snipping on Horizontal Plane */
+@keyframes scissor-snip-upper-horiz {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes scissor-snip-lower-horiz {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(12deg);
+  }
+}
+
+.animate-snip-upper-horiz {
+  animation: scissor-snip-upper-horiz 0.22s ease-in-out infinite;
+  transform-origin: 28px 14px;
+}
+
+.animate-snip-lower-horiz {
+  animation: scissor-snip-lower-horiz 0.22s ease-in-out infinite;
+  transform-origin: 28px 14px;
+}
+
+/* Straight Razor: Angle Gliding and Drawing the Line */
+@keyframes razor-carving {
+  0%, 100% {
+    transform: rotate(-25deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-34deg) translateY(-2px);
+  }
+}
+
+.animate-razor-carve {
+  animation: razor-carving 0.36s ease-in-out infinite;
+}
+
+/* =========================================================================
+   3D CAROUSEL PERSPECTIVE STAGE & ZIGZAG ENTRANCE
+   ========================================================================= */
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Zigzag entrance animations */
+@keyframes zigzag-in-left {
+  0% {
+    opacity: 0;
+    transform: translate3d(-60px, -20px, -100px) rotate(-8deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translate3d(8px, 4px, 20px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@keyframes zigzag-in-right {
+  0% {
+    opacity: 0;
+    transform: translate3d(60px, 20px, -100px) rotate(8deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translate3d(-8px, -4px, 20px) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+.animate-zigzag-left {
+  animation: zigzag-in-left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-zigzag-right {
+  animation: zigzag-in-right 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* =========================================================================
+   PERFORMANCE OPTIMIZATION (Hardware Acceleration & Smooth Rendering)
+   ========================================================================= */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }

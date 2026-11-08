@@ -38,13 +38,13 @@ export const GallerySection: React.FC = () => {
   };
 
   return (
-    <section id="trabalho" className="py-24 bg-[#090a0e] relative">
+    <section id="trabalho" className="py-24 bg-transparent relative scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[#d4af37] uppercase mb-3">
-            <Camera className="w-3.5 h-3.5" />
+            <Camera className="w-3.5 h-3.5 animate-icon-float" />
             <span>GALERIA DE CORTES REAIS</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#f5f5f7] tracking-tight mb-4">
@@ -55,8 +55,8 @@ export const GallerySection: React.FC = () => {
           </p>
         </div>
 
-        {/* Filter Segmented Controls */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* Filter Segmented Controls with 3D Depth */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-12">
           {[
             { id: "todos", label: "Todos os Trabalhos" },
             { id: "alta-res", label: "Destaques Principais" },
@@ -67,10 +67,10 @@ export const GallerySection: React.FC = () => {
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-all whitespace-nowrap ${
+              className={`btn-3d px-4 py-2 text-xs sm:text-sm font-semibold rounded-md transition-all whitespace-nowrap ${
                 activeFilter === filter.id
-                  ? "bg-[#d4af37] text-[#0d0f12] shadow-sm font-semibold"
-                  : "bg-[#141720] text-[#9ca3af] hover:text-[#f3e5ab] border border-[#232733]"
+                  ? "btn-3d-gold bg-[#d4af37] text-[#0d0f12]"
+                  : "btn-3d-dark bg-[#141720] text-[#9ca3af] hover:text-[#f3e5ab] border border-[#232733]"
               }`}
             >
               {filter.label}
@@ -78,11 +78,11 @@ export const GallerySection: React.FC = () => {
           ))}
         </div>
 
-        {/* Marquee High-Res Showcase when in "Todos" or "Destaques" */}
+        {/* Marquee High-Res Showcase with Anchor Points */}
         {(activeFilter === "todos" || activeFilter === "alta-res") && (
           <div className="mb-16">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#d4af37] mb-6">
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5 animate-icon-pulse" />
               <span>Destaques em Alta Resolução</span>
             </div>
 
@@ -92,8 +92,18 @@ export const GallerySection: React.FC = () => {
                 return (
                   <div
                     key={photo.id}
+                    id={`destaque-${photo.id}`}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Abrir foto ${photo.title}`}
                     onClick={() => setSelectedPhotoIndex(globalIndex)}
-                    className="group relative cursor-pointer overflow-hidden rounded-xl bg-[#141720] border border-[#d4af37]/30 transition-all duration-300 hover:border-[#d4af37] hover:shadow-xl hover:-translate-y-1"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setSelectedPhotoIndex(globalIndex);
+                      }
+                    }}
+                    className="group relative cursor-pointer overflow-hidden rounded-2xl card-smoke-glass transition-all duration-300 hover:border-[#d4af37] hover:shadow-[0_15px_35px_rgba(212,175,55,0.22)] hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]"
                   >
                     <div className="aspect-square overflow-hidden bg-[#101217]">
                       <picture>
@@ -112,20 +122,20 @@ export const GallerySection: React.FC = () => {
                       </picture>
                     </div>
 
-                    {/* Gradient Overlay & Details */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity pointer-events-none" />
+                    {/* Smoked glass gradient overlay with high-contrast readable text */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#090b10]/95 via-[#0c0e14]/40 to-transparent opacity-85 group-hover:opacity-95 transition-opacity pointer-events-none" />
 
-                    <div className="absolute bottom-0 inset-x-0 p-5 flex items-end justify-between">
+                    <div className="absolute bottom-0 inset-x-0 p-5 flex items-end justify-between backdrop-blur-[2px]">
                       <div>
-                        <span className="text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase block">
+                        <span className="text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase block drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                           {photo.category}
                         </span>
-                        <h3 className="font-serif text-lg font-bold text-[#f5f5f7]">
+                        <h3 className="font-serif text-lg font-bold text-[#f5f5f7] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                           {photo.title}
                         </h3>
                       </div>
-                      <div className="w-9 h-9 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#0b0c10] transition-colors">
-                        <ZoomIn className="w-4 h-4" />
+                      <div className="w-9 h-9 rounded-full bg-[#d4af37]/25 border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#0b0c10] transition-colors shadow-lg">
+                        <ZoomIn className="w-4 h-4 animate-icon-wiggle" />
                       </div>
                     </div>
                   </div>
@@ -135,7 +145,7 @@ export const GallerySection: React.FC = () => {
           </div>
         )}
 
-        {/* Secondary / Filtered Gallery Grid */}
+        {/* Secondary / Filtered Gallery Grid with Anchor Points */}
         <div>
           {activeFilter === "todos" && (
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#9ca3af] mb-6">
@@ -143,14 +153,24 @@ export const GallerySection: React.FC = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4">
             {(activeFilter === "todos" ? secondaryPhotos : filteredPhotos).map((photo) => {
               const globalIndex = GALLERY_PHOTOS.findIndex((p) => p.id === photo.id);
               return (
                 <div
                   key={photo.id}
+                  id={`foto-${photo.id}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Abrir foto ${photo.title}`}
                   onClick={() => setSelectedPhotoIndex(globalIndex)}
-                  className="group relative cursor-pointer overflow-hidden rounded-lg bg-[#141720] border border-[#252a36] hover:border-[#d4af37]/60 transition-all duration-200 hover:-translate-y-0.5"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelectedPhotoIndex(globalIndex);
+                    }
+                  }}
+                  className="group relative cursor-pointer overflow-hidden rounded-xl bg-[#141720] border border-[#252a36] hover:border-[#d4af37]/70 transition-all duration-200 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37] shadow-lg"
                 >
                   <div className="aspect-[3/4] overflow-hidden bg-[#101218] flex items-center justify-center">
                     <picture>
@@ -170,11 +190,11 @@ export const GallerySection: React.FC = () => {
                   </div>
 
                   {/* Scrim with caption on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-2.5 pointer-events-none">
-                    <p className="text-[11px] font-medium text-[#f5f5f7] line-clamp-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-70 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-2.5 sm:p-3 pointer-events-none">
+                    <p className="text-[11px] sm:text-xs font-semibold text-[#ffffff] line-clamp-1 drop-shadow">
                       {photo.title}
                     </p>
-                    <span className="text-[9px] text-[#d4af37] block">
+                    <span className="text-[9px] sm:text-[10px] text-[#d4af37] block font-medium">
                       {photo.category}
                     </span>
                   </div>
@@ -191,10 +211,12 @@ export const GallerySection: React.FC = () => {
 
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal with Index & Anchored Navigation */}
       {selectedPhotoIndex !== null && (
         <ImageLightbox
           photo={GALLERY_PHOTOS[selectedPhotoIndex]}
+          currentIndex={selectedPhotoIndex}
+          totalPhotos={GALLERY_PHOTOS.length}
           onClose={() => setSelectedPhotoIndex(null)}
           onPrev={handlePrevPhoto}
           onNext={handleNextPhoto}

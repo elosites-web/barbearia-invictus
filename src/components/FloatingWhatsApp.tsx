@@ -6,21 +6,32 @@ export const FloatingWhatsApp: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Exibe o botão flutuante estritamente após 30 segundos do carregamento da página
+    // Exibe o botão com animação suave de spring bounce após alguns segundos ou rolagem
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 30000);
+    }, 4000);
 
-    return () => clearTimeout(timer);
+    const handleScroll = () => {
+      if (window.scrollY > 250) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
     <aside
       aria-label="Atendimento rápido pelo WhatsApp"
-      className={`fixed bottom-6 right-6 z-40 flex items-center gap-3 group transition-all duration-700 ease-out ${
+      className={`fixed bottom-6 right-6 z-40 flex items-center gap-3 group select-none transition-all duration-500 ease-out ${
         isVisible
-          ? "opacity-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 translate-y-8 pointer-events-none"
+          ? "opacity-100 pointer-events-auto animate-spring-bounce"
+          : "opacity-0 translate-y-10 pointer-events-none"
       }`}
     >
       {/* Tooltip com identidade visual da barbearia */}
@@ -29,34 +40,34 @@ export const FloatingWhatsApp: React.FC = () => {
           Barbearia Invictus
         </span>
         <span className="text-xs text-[#e5e7eb] font-medium flex items-center gap-1.5 mt-0.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#ecc94b] animate-pulse" />
           Agendar pelo WhatsApp
         </span>
       </div>
 
-      {/* Container do Botão com efeito de pulso em gradiente */}
+      {/* Container do Botão com efeito de pulso em gradiente dourado e profundidade 3D */}
       <div className="relative flex items-center justify-center">
         
         {/* Efeito de Pulso 1: Anel expansivo em gradiente dourado (Ping) */}
         <span
-          className="absolute -inset-2.5 rounded-full bg-gradient-to-tr from-[#d4af37] via-[#f3e5ab] to-[#aa841e] opacity-40 animate-ping pointer-events-none"
+          className="absolute -inset-2.5 rounded-full bg-gradient-to-tr from-[#d4af37] via-[#f3e5ab] to-[#aa841e] opacity-35 animate-ping pointer-events-none"
           aria-hidden="true"
         />
 
         {/* Efeito de Pulso 2: Halo suave e constante em gradiente (Pulse) */}
         <span
-          className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-[#d4af37]/70 via-[#ecc94b]/40 to-[#aa841e]/70 blur-[6px] animate-pulse pointer-events-none"
+          className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-[#d4af37]/60 via-[#ecc94b]/30 to-[#aa841e]/60 blur-[6px] animate-pulse pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* Botão de Ação estilizado na identidade visual Invictus (Dark Luxury + Dourado) */}
+        {/* Botão de Ação estilizado com profundidade 3D (saltado e clique mecânico) */}
         <a
           href={`${BARBEARIA_CONFIG.whatsappUrl}?text=${encodeURIComponent(
             BARBEARIA_CONFIG.defaultWhatsappMessage
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative flex items-center justify-center w-14 h-14 sm:w-15 sm:h-15 rounded-full bg-gradient-to-b from-[#1c1f28] via-[#101217] to-[#08090d] text-[#f3e5ab] border-2 border-[#d4af37] shadow-[0_8px_25px_rgba(212,175,55,0.35)] hover:shadow-[0_10px_35px_rgba(212,175,55,0.6)] hover:border-[#f5e6b3] hover:text-white hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#d4af37]/50"
+          className="btn-3d btn-3d-gold relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-b from-[#1c1f28] via-[#101217] to-[#08090d] text-[#f3e5ab] border-2 border-[#d4af37] shadow-[0_6px_0_#8c671a,0_10px_25px_rgba(212,175,55,0.35)] hover:border-[#f5e6b3] transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#d4af37]/50"
           aria-label="Abrir conversa no WhatsApp oficial da Barbearia Invictus"
         >
           {/* Brilho radial interno discreto */}
@@ -65,16 +76,18 @@ export const FloatingWhatsApp: React.FC = () => {
             aria-hidden="true"
           />
 
-          {/* Logotipo Oficial do WhatsApp com acabamento dourado Invictus */}
-          <WhatsAppIcon className="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
+          {/* Logotipo do WhatsApp do tamanho da bola anterior, mas puramente em amarelo */}
+          <WhatsAppIcon
+            className="w-8 h-8 sm:w-9 sm:h-9 text-[#ecc94b] group-hover:text-[#fef08a] drop-shadow-[0_2px_8px_rgba(236,201,75,0.6)] transition-all duration-200 animate-icon-pulse shrink-0"
+          />
 
           {/* Ponto indicador de atendimento ativo no topo */}
           <span
             className="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-0.5 -mr-0.5"
             title="Atendimento online"
           >
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#25D366] border border-[#0d0f14]" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ecc94b] opacity-75" />
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#ecc94b] border-2 border-[#0d0f14]" />
           </span>
         </a>
       </div>
