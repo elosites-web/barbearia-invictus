@@ -447,10 +447,10 @@ a.btn-3d-dark {
 @keyframes button-ripple {
   0% {
     transform: translate(-50%, -50%) scale(0);
-    opacity: 0.45;
+    opacity: 0.35;
   }
   45% {
-    opacity: 0.22;
+    opacity: 0.16;
   }
   100% {
     transform: translate(-50%, -50%) scale(1);

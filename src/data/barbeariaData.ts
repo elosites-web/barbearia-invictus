@@ -76,8 +76,9 @@ export const BARBEARIA_CONFIG = {
   socials: {
     instagram: "https://www.instagram.com/barbeariainvictusjdi/",
     facebook: "https://www.facebook.com/barbeariainvictusjdi/",
-    googleMaps: "https://www.google.com/maps/place/Barbearia+Invictus/@-23.1653369,-46.8731039,17z/data=!3m1!4b1!4m6!3m5!1s0x94cf26513b99a523:0x4bc92d987a429fd4!8m2!3d-23.1653369!4d-46.870529!16s%2Fg%2F11b76mgwsx?entry=ttu",
+    googleMaps: "https://www.google.com/maps/place/Barbearia+Invictus/@-23.1653369,-46.870529",
     googleReviews: "https://www.google.com/maps/place/Barbearia+Invictus/@-23.1653369,-46.870529,17z/data=!4m8!3m7!1s0x94cf26513b99a523:0x4bc92d987a429fd4!8m2!3d-23.1653369!4d-46.870529!9m1!1b1!16s%2Fg%2F11b76mgwsx?entry=ttu",
+    waze: "https://waze.com/ul?ll=-23.1653369,-46.870529&navigate=yes",
     mapsEmbedUrl: "https://maps.google.com/maps?q=Barbearia+Invictus+Rua+Rio+de+Janeiro+266+Jundiai&t=&z=16&ie=UTF8&iwloc=&output=embed",
   },
   logoPath: "/assets/aistudio/logotipo-invictus_864dcca7.webp",

@@ -351,26 +351,7 @@ export const ReviewsSection: React.FC = () => {
             })}
           </div>
 
-          {/* Botões Laterais Flutuantes exclusivos para Desktop (não sobrepõem o card) */}
-          <button
-            type="button"
-            onClick={handlePrev}
-            className="btn-3d btn-3d-dark hidden lg:flex absolute -left-6 xl:-left-12 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-[#161924]/95 hover:bg-[#d4af37] text-[#f3e5ab] hover:text-[#0b0c10] border border-[#d4af37]/45 transition-colors focus:outline-none backdrop-blur-md shadow-xl group items-center justify-center"
-            aria-label="Avaliação anterior"
-            title="Depoimento anterior"
-          >
-            <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-          </button>
 
-          <button
-            type="button"
-            onClick={handleNext}
-            className="btn-3d btn-3d-dark hidden lg:flex absolute -right-6 xl:-right-12 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-[#161924]/95 hover:bg-[#d4af37] text-[#f3e5ab] hover:text-[#0b0c10] border border-[#d4af37]/45 transition-colors focus:outline-none backdrop-blur-md shadow-xl group items-center justify-center"
-            aria-label="Próxima avaliação"
-            title="Próximo depoimento"
-          >
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-          </button>
         </div>
 
         {/* =========================================================================
