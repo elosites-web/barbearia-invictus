@@ -51,7 +51,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-[92vh] lg:min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden bg-transparent"
+      className="relative min-h-[92vh] lg:min-h-screen pt-28 pb-24 flex items-center justify-center overflow-hidden bg-transparent"
     >
       {/* Background subtle radial glow with slow deep parallax */}
       <div
@@ -129,20 +129,20 @@ export const Hero: React.FC = () => {
 
             {/* Layer 3: Micro Highlights strip with Smoked Glass cards & accelerated parallax */}
             <div
-              className="pt-6 border-t border-[#1f242e]/80 grid grid-cols-3 gap-3.5 max-w-xl will-change-transform"
+              className="pt-6 border-t border-[#1f242e]/80 grid grid-cols-3 gap-3.5 max-w-xl will-change-transform text-center"
               style={{
                 transform: `translate3d(0, ${offsetStats}px, 0)`,
               }}
             >
-              <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1">
+              <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1 text-center flex flex-col items-center justify-center">
                 <p className="text-xl sm:text-2xl font-bold font-serif text-[#f3e5ab] tabular-nums">100%</p>
                 <p className="text-xs text-[#a0a6b5] mt-0.5">Trabalhos Reais</p>
               </div>
-              <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1">
+              <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1 text-center flex flex-col items-center justify-center">
                 <p className="text-xl sm:text-2xl font-bold font-serif text-[#f3e5ab] tabular-nums">5.0 ★</p>
                 <p className="text-xs text-[#a0a6b5] mt-0.5">Avaliação Google</p>
               </div>
-              <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1">
+              <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1 text-center flex flex-col items-center justify-center">
                 <p className="text-xl sm:text-2xl font-bold font-serif text-[#f3e5ab] tabular-nums">Jd. Tarumã</p>
                 <p className="text-xs text-[#a0a6b5] mt-0.5">Fácil Estacionar</p>
               </div>
@@ -180,30 +180,30 @@ export const Hero: React.FC = () => {
                 {/* Measured Scrim for contrast */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10]/95 via-transparent to-black/20 pointer-events-none" />
 
-                {/* Badge caption on bottom with Smoked Glass */}
-                <div className="absolute bottom-3 left-3 right-3 p-3 card-smoke-glass rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                  <div>
-                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase block">
+                {/* Badge caption on bottom: optimized for mobile (full-width horizontal bar) and tablet (compact corner card), preserved on desktop */}
+                <div className="absolute z-10 card-smoke-glass rounded-xl transition-all bottom-2.5 left-2.5 right-2.5 p-2.5 flex flex-row items-center justify-between gap-2 max-w-none text-left sm:bottom-3 sm:left-auto sm:right-3 sm:max-w-[210px] sm:p-2.5 sm:flex-col sm:items-center sm:text-center sm:gap-1 lg:bottom-3 lg:right-3 lg:max-w-[230px] lg:p-3 lg:flex-col lg:items-center lg:text-center lg:gap-1">
+                  <div className="text-left sm:text-center w-full">
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase block text-left sm:text-center">
                       Trabalho Real da Invictus
                     </span>
-                    <span className="text-xs text-[#f5f5f7] font-medium block">
+                    <span className="text-xs text-[#f5f5f7] font-medium block text-left sm:text-center">
                       Degradê com Desenho Lateral
                     </span>
                   </div>
-                  <span className="self-start sm:self-center text-[10px] text-[#b0b6c4] bg-[#1a1e27]/90 px-2.5 py-0.5 rounded border border-[#2b303d] shrink-0">
+                  <span className="text-[10px] text-[#b0b6c4] bg-[#1a1e27]/90 px-2.5 py-0.5 rounded border border-[#2b303d] shrink-0 self-center text-center mt-0 sm:mt-0.5 whitespace-nowrap">
                     Kauan Barbearia
                   </span>
                 </div>
               </div>
 
-              {/* Layer 5: Side Floating Preview Card 1 (Platinum Cut) with High Parallax Speed */}
+              {/* Layer 5: Side Floating Preview Card 1 (Platinum Cut) raised slightly to symmetrically overlap bottom-left like superior card */}
               <div
-                className="hidden sm:flex items-center gap-3 absolute -bottom-6 -left-6 card-smoke-glass p-2.5 rounded-xl shadow-2xl max-w-xs transition-all will-change-transform z-20"
+                className="hidden sm:flex items-center gap-3 absolute -bottom-5 -left-5 card-smoke-glass p-2.5 rounded-xl shadow-2xl max-w-[210px] sm:max-w-[230px] transition-all will-change-transform z-20"
                 style={{
                   transform: `translate3d(0, ${offsetFloatingCard1}px, 0)`,
                 }}
               >
-                <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 border border-[#d4af37]/30 bg-[#161922]">
+                <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-[#d4af37]/30 bg-[#161922]">
                   <picture>
                     <source srcSet={platinumPhoto.webpSrc} type="image/webp" />
                     <source srcSet={platinumPhoto.fallbackSrc} type="image/jpeg" />

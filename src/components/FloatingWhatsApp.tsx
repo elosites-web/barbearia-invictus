@@ -34,22 +34,52 @@ export const FloatingWhatsApp: React.FC = () => {
   };
 
   useEffect(() => {
-    // Exibe o botão com animação suave de spring bounce após alguns segundos ou rolagem
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 4000);
+    let timer: NodeJS.Timeout | null = null;
+    let hasScheduledAfterHero = false;
 
-    const handleScroll = () => {
-      if (window.scrollY > 250) {
-        setIsVisible(true);
+    const checkHeroAndSchedule = () => {
+      const hero = document.getElementById("inicio");
+      // Define limite inferior da seção Hero
+      const heroBottom = hero
+        ? hero.offsetTop + hero.offsetHeight - 80
+        : window.innerHeight * 0.85;
+      const isCurrentlyInHero = window.scrollY < heroBottom;
+
+      if (isCurrentlyInHero) {
+        // O botão flutuante NUNCA pode aparecer na hero
+        setIsVisible(false);
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+        hasScheduledAfterHero = false;
+      } else {
+        // Usuário saiu da hero: agendar exibição para 20 segundos após sair da hero
+        if (!hasScheduledAfterHero && !timer) {
+          hasScheduledAfterHero = true;
+          timer = setTimeout(() => {
+            // Verifica se o usuário ainda permanece fora da hero antes de exibir
+            const currentHero = document.getElementById("inicio");
+            const currentHeroBottom = currentHero
+              ? currentHero.offsetTop + currentHero.offsetHeight - 80
+              : window.innerHeight * 0.85;
+
+            if (window.scrollY >= currentHeroBottom) {
+              setIsVisible(true);
+            }
+          }, 20000); // 20 segundos
+        }
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", checkHeroAndSchedule, { passive: true });
+    window.addEventListener("resize", checkHeroAndSchedule, { passive: true });
+    checkHeroAndSchedule();
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener("scroll", handleScroll);
+      if (timer) clearTimeout(timer);
+      window.removeEventListener("scroll", checkHeroAndSchedule);
+      window.removeEventListener("resize", checkHeroAndSchedule);
     };
   }, []);
 

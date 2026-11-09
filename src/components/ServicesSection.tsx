@@ -2,6 +2,7 @@ import React from "react";
 import { BARBEARIA_CONFIG, SERVICES } from "../data/barbeariaData";
 import { Scissors, Sparkles, Info } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
+import { FadeInSection } from "./FadeInSection";
 
 export const ServicesSection: React.FC = () => {
   return (
@@ -25,79 +26,85 @@ export const ServicesSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Services Cards Grid with Smoked Glassmorphism Effect */}
+        {/* Services Cards Grid with Smoked Glassmorphism Effect & Fade-in-up animations */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {SERVICES.map((service) => {
+          {SERVICES.map((service, index) => {
             const isFeatured = service.id === "corte";
 
             return (
-              <div
+              <FadeInSection
                 key={service.id}
-                className={`relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl card-smoke-glass card-smoke-glass-hover ${
-                  isFeatured
-                    ? "border-[#d4af37]/50 shadow-[0_0_30px_rgba(212,175,55,0.12)] ring-1 ring-[#d4af37]/30"
-                    : ""
-                }`}
+                direction="up"
+                delay={index * 120}
+                className="h-full flex flex-col"
               >
-                {/* Featured Badge if applicable */}
-                {service.tag && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#aa841e] text-[#0d0f12] text-[10px] font-extrabold uppercase tracking-wider px-3.5 py-0.5 rounded-full shadow-lg flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-[#0d0f12] animate-icon-pulse" />
-                    <span>{service.tag}</span>
-                  </div>
-                )}
+                <div
+                  className={`service-card relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl card-smoke-glass h-full ${
+                    isFeatured
+                      ? "service-card-featured ring-1 ring-[#d4af37]/40"
+                      : ""
+                  }`}
+                >
+                  {/* Featured Badge floating gently over the center of the top line */}
+                  {service.tag && (
+                    <div className="absolute -top-3.5 left-1/2 animate-floating-badge bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#aa841e] text-[#0d0f12] text-[10px] font-extrabold uppercase tracking-wider px-3.5 py-0.5 rounded-full shadow-[0_4px_14px_rgba(212,175,55,0.45)] flex items-center gap-1 z-30 select-none pointer-events-none">
+                      <Sparkles className="w-3 h-3 text-[#0d0f12] animate-icon-pulse" />
+                      <span>{service.tag}</span>
+                    </div>
+                  )}
 
-                <div>
-                  {/* Service Title */}
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <h3 className="font-serif text-xl font-bold text-[#f5f5f7]">
-                      {service.name}
-                    </h3>
-                  </div>
+                  <div>
+                    {/* Service Title */}
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <h3 className="font-serif text-xl font-bold text-[#f5f5f7]">
+                        {service.name}
+                      </h3>
+                    </div>
 
-                  {/* Price presentation */}
-                  <div className="mb-5 pb-5 border-b border-[#252932]/70">
-                    <div className="flex items-baseline gap-1">
-                      <span className="font-serif text-3xl font-extrabold text-[#f3e5ab] tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
-                        {service.price}
-                      </span>
-                      {service.id === "quimica" && (
-                        <span className="text-xs text-[#9ca3af] font-medium">/ a partir</span>
+                    {/* Price presentation */}
+                    <div className="mb-5 pb-5 border-b border-[#252932]/70">
+                      <div className="flex items-baseline gap-1">
+                        <span className="font-serif text-3xl font-extrabold text-[#f3e5ab] tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                          {service.price}
+                        </span>
+                        {service.id === "quimica" && (
+                          <span className="text-xs text-[#9ca3af] font-medium">/ a partir</span>
+                        )}
+                      </div>
+                      {service.priceNote && (
+                        <p className="text-[11px] text-[#d4af37] mt-1 font-medium flex items-center gap-1.5">
+                          <Info className="w-3.5 h-3.5 shrink-0 animate-icon-float" />
+                          <span>{service.priceNote}</span>
+                        </p>
                       )}
                     </div>
-                    {service.priceNote && (
-                      <p className="text-[11px] text-[#d4af37] mt-1 font-medium flex items-center gap-1.5">
-                        <Info className="w-3.5 h-3.5 shrink-0 animate-icon-float" />
-                        <span>{service.priceNote}</span>
-                      </p>
-                    )}
+
+                    {/* Description */}
+                    <p className="text-sm text-[#c5c8d1] leading-relaxed mb-6">
+                      {service.description}
+                    </p>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-sm text-[#c5c8d1] leading-relaxed mb-6">
-                    {service.description}
-                  </p>
+                  {/* Individual CTA Button with 3D Depth */}
+                  <div className="pt-2">
+                    <a
+                      href={`${BARBEARIA_CONFIG.whatsappUrl}?text=${encodeURIComponent(
+                        service.whatsappMessage
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`btn-3d w-full flex items-center justify-center gap-2 py-3 px-4 rounded-md text-xs sm:text-sm font-semibold transition-all group ${
+                        isFeatured
+                          ? "btn-3d-gold bg-[#d4af37] hover:bg-[#ecc94b] text-[#0d0f12]"
+                          : "btn-3d-dark bg-[#181b22] hover:bg-[#222631] text-[#e5e7eb] border border-[#d4af37]/30 hover:border-[#d4af37]/60"
+                      }`}
+                    >
+                      <WhatsAppIcon className="w-4 h-4 shrink-0 animate-icon-pulse" />
+                      <span>AGENDAR ESTE SERVIÇO</span>
+                    </a>
+                  </div>
                 </div>
-
-                {/* Individual CTA Button with 3D Depth */}
-                <div className="pt-2">
-                  <a
-                    href={`${BARBEARIA_CONFIG.whatsappUrl}?text=${encodeURIComponent(
-                      service.whatsappMessage
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`btn-3d w-full flex items-center justify-center gap-2 py-3 px-4 rounded-md text-xs sm:text-sm font-semibold transition-all group ${
-                      isFeatured
-                        ? "btn-3d-gold bg-[#d4af37] hover:bg-[#ecc94b] text-[#0d0f12]"
-                        : "btn-3d-dark bg-[#181b22] hover:bg-[#222631] text-[#e5e7eb] border border-[#d4af37]/30 hover:border-[#d4af37]/60"
-                    }`}
-                  >
-                    <WhatsAppIcon className="w-4 h-4 shrink-0 animate-icon-pulse" />
-                    <span>AGENDAR ESTE SERVIÇO</span>
-                  </a>
-                </div>
-              </div>
+              </FadeInSection>
             );
           })}
         </div>

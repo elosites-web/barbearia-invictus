@@ -15,7 +15,7 @@ export const Footer: React.FC<FooterProps> = ({
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#060709] border-t border-[#1b1f2b] text-[#9ca3af] pt-16 pb-12 overflow-hidden">
+    <footer className="relative bg-[#060709] border-t border-[#1b1f2b] text-[#9ca3af] pt-16 pb-32 sm:pb-36 overflow-hidden">
       
       {/* =========================================================================
           BACKGROUND PERSONALIZADO COM MAQUININHA DE BARBEIRO E NAVALHA (Transparente)
