@@ -98,18 +98,18 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full overflow-hidden border border-[#d4af37]/40 bg-[#12141a]">
+                <div className="w-10 h-10 rounded-full overflow-hidden border border-[#d4af37]/40 bg-[#12141a] p-0.5 flex items-center justify-center">
                   <picture>
                     <source srcSet={BARBEARIA_CONFIG.logoPath} type="image/webp" />
                     <source srcSet={BARBEARIA_CONFIG.logoFallbackPath} type="image/png" />
                     <img
-                      src={BARBEARIA_CONFIG.logoPath}
+                      src={BARBEARIA_CONFIG.logoFallbackPath}
                       alt="Logotipo Barbearia Invictus"
                       width={40}
                       height={40}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       referrerPolicy="no-referrer"
                     />
                   </picture>

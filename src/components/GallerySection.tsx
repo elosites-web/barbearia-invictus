@@ -2,6 +2,55 @@ import React, { useState } from "react";
 import { GALLERY_PHOTOS, GalleryPhoto } from "../data/barbeariaData";
 import { ImageLightbox } from "./ImageLightbox";
 import { Camera, ZoomIn, Sparkles } from "lucide-react";
+import { getResponsiveSizes } from "../utils/imageUtils";
+
+/**
+ * Componente otimizado de imagem de galeria com Lazy Loading, Decodificação Assíncrona,
+ * priorização baixa de rede para elementos fora da viewport, e skeleton shimmer para CLS = 0.
+ */
+const LazyGalleryImage: React.FC<{
+  webpSrc: string;
+  fallbackSrc: string;
+  alt: string;
+  width: number;
+  height: number;
+  sizes: string;
+  aspectClass: string;
+}> = ({ webpSrc, fallbackSrc, alt, width, height, sizes, aspectClass }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className={`${aspectClass} overflow-hidden bg-[#101217] relative`}>
+      {/* Skeleton Shimmer enquanto a imagem é decodificada de forma assíncrona */}
+      {!loaded && (
+        <div className="absolute inset-0 bg-gradient-to-r from-[#141722] via-[#222738] to-[#141722] animate-pulse" />
+      )}
+
+      <picture>
+        <source srcSet={webpSrc} type="image/webp" />
+        <source srcSet={fallbackSrc} type="image/jpeg" />
+        <img
+          src={webpSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes={sizes}
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          onLoad={() => setLoaded(true)}
+          className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+          referrerPolicy="no-referrer"
+        />
+      </picture>
+
+      {/* Sobreposição de Brilho Dourado Suave (Golden Glow Sheen) */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#d4af37]/0 via-[#fef08a]/15 to-[#d4af37]/35 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-screen" />
+    </div>
+  );
+};
 
 export const GallerySection: React.FC = () => {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
@@ -105,22 +154,16 @@ export const GallerySection: React.FC = () => {
                     }}
                     className="group relative cursor-pointer overflow-hidden rounded-2xl card-smoke-glass transition-all duration-300 hover:border-[#d4af37] hover:shadow-[0_15px_35px_rgba(212,175,55,0.22)] hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]"
                   >
-                    <div className="aspect-square overflow-hidden bg-[#101217]">
-                      <picture>
-                        <source srcSet={photo.webpSrc} type="image/webp" />
-                        <source srcSet={photo.fallbackSrc} type="image/jpeg" />
-                        <img
-                          src={photo.webpSrc}
-                          alt={photo.alt}
-                          width={600}
-                          height={600}
-                          loading="lazy"
-                          decoding="async"
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          referrerPolicy="no-referrer"
-                        />
-                      </picture>
-                    </div>
+                    {/* Imagem com Zoom Suave (scale-110), Brilho Dourado e Lazy Loading Otimizado */}
+                    <LazyGalleryImage
+                      webpSrc={photo.webpSrc}
+                      fallbackSrc={photo.fallbackSrc}
+                      alt={photo.alt}
+                      width={600}
+                      height={600}
+                      sizes={getResponsiveSizes("gallery-main")}
+                      aspectClass="aspect-square"
+                    />
 
                     {/* Smoked glass gradient overlay with high-contrast readable text */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#090b10]/95 via-[#0c0e14]/40 to-transparent opacity-85 group-hover:opacity-95 transition-opacity pointer-events-none" />
@@ -130,11 +173,11 @@ export const GallerySection: React.FC = () => {
                         <span className="text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase block drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                           {photo.category}
                         </span>
-                        <h3 className="font-serif text-lg font-bold text-[#f5f5f7] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                        <h3 className="font-serif text-lg font-bold text-[#f5f5f7] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:text-[#fef08a] transition-colors duration-300">
                           {photo.title}
                         </h3>
                       </div>
-                      <div className="w-9 h-9 rounded-full bg-[#d4af37]/25 border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#0b0c10] transition-colors shadow-lg">
+                      <div className="w-9 h-9 rounded-full bg-[#d4af37]/25 border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#0b0c10] group-hover:scale-110 transition-all duration-300 shadow-lg">
                         <ZoomIn className="w-4 h-4 animate-icon-wiggle" />
                       </div>
                     </div>
@@ -170,28 +213,22 @@ export const GallerySection: React.FC = () => {
                       setSelectedPhotoIndex(globalIndex);
                     }
                   }}
-                  className="group relative cursor-pointer overflow-hidden rounded-xl bg-[#141720] border border-[#252a36] hover:border-[#d4af37]/70 transition-all duration-200 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37] shadow-lg"
+                  className="group relative cursor-pointer overflow-hidden rounded-xl bg-[#141720] border border-[#252a36] hover:border-[#d4af37] transition-all duration-300 hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37] shadow-lg hover:shadow-[0_12px_28px_rgba(212,175,55,0.25)]"
                 >
-                  <div className="aspect-[3/4] overflow-hidden bg-[#101218] flex items-center justify-center">
-                    <picture>
-                      <source srcSet={photo.webpSrc} type="image/webp" />
-                      <source srcSet={photo.fallbackSrc} type="image/jpeg" />
-                      <img
-                        src={photo.webpSrc}
-                        alt={photo.alt}
-                        width={300}
-                        height={400}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        referrerPolicy="no-referrer"
-                      />
-                    </picture>
-                  </div>
+                  {/* Imagem com Zoom Suave (scale-110), Brilho Dourado e Lazy Loading Otimizado */}
+                  <LazyGalleryImage
+                    webpSrc={photo.webpSrc}
+                    fallbackSrc={photo.fallbackSrc}
+                    alt={photo.alt}
+                    width={300}
+                    height={400}
+                    sizes={getResponsiveSizes("gallery-grid")}
+                    aspectClass="aspect-[3/4]"
+                  />
 
                   {/* Scrim with caption on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-70 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-2.5 sm:p-3 pointer-events-none">
-                    <p className="text-[11px] sm:text-xs font-semibold text-[#ffffff] line-clamp-1 drop-shadow">
+                    <p className="text-[11px] sm:text-xs font-semibold text-[#ffffff] line-clamp-1 drop-shadow group-hover:text-[#fef08a] transition-colors duration-300">
                       {photo.title}
                     </p>
                     <span className="text-[9px] sm:text-[10px] text-[#d4af37] block font-medium">

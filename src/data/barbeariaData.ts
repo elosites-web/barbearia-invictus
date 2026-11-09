@@ -20,6 +20,13 @@ export interface ReviewItem {
   dateText?: string;
   quote: string;
   source: string;
+  avatarUrl?: string;
+  cutPhoto?: {
+    title: string;
+    webpSrc: string;
+    fallbackSrc: string;
+    alt: string;
+  };
 }
 
 export interface GalleryPhoto {
@@ -69,8 +76,8 @@ export const BARBEARIA_CONFIG = {
   socials: {
     instagram: "https://www.instagram.com/barbeariainvictusjdi/",
     facebook: "https://www.facebook.com/barbeariainvictusjdi/",
-    googleMaps: "https://www.google.com/maps/place/Barbearia+Invictus/@-23.1652962,-46.8704587,17z/",
-    googleReviews: "https://www.google.com/maps/place/Barbearia+Invictus/@-23.1652962,-46.8704587,17z/",
+    googleMaps: "https://www.google.com/maps/place/Barbearia+Invictus/@-23.1653369,-46.8731039,17z/data=!3m1!4b1!4m6!3m5!1s0x94cf26513b99a523:0x4bc92d987a429fd4!8m2!3d-23.1653369!4d-46.870529!16s%2Fg%2F11b76mgwsx?entry=ttu",
+    googleReviews: "https://www.google.com/maps/place/Barbearia+Invictus/@-23.1653369,-46.870529,17z/data=!4m8!3m7!1s0x94cf26513b99a523:0x4bc92d987a429fd4!8m2!3d-23.1653369!4d-46.870529!9m1!1b1!16s%2Fg%2F11b76mgwsx?entry=ttu",
     mapsEmbedUrl: "https://maps.google.com/maps?q=Barbearia+Invictus+Rua+Rio+de+Janeiro+266+Jundiai&t=&z=16&ie=UTF8&iwloc=&output=embed",
   },
   logoPath: "/assets/aistudio/logotipo-invictus_864dcca7.webp",
@@ -255,6 +262,13 @@ export const REVIEWS: ReviewItem[] = [
     author: "Kawa Fonseca",
     stars: 5,
     source: "Avaliação no Google",
+    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80",
+    cutPhoto: {
+      title: "Degradê com Textura",
+      webpSrc: "/assets/aistudio/02-degrade-com-topo-texturizado_43de514e.webp",
+      fallbackSrc: "/assets/aistudio/02-degrade-com-topo-texturizado_43de514e.jpg",
+      alt: "Corte realizado para Kawa Fonseca na Barbearia Invictus",
+    },
     quote:
       "Excelente experiência! Fui muito bem atendido, tudo ocorreu conforme o esperado e a qualidade superou minhas expectativas. Dá para perceber o cuidado e a dedicação em oferecer um bom serviço. Recomendo muito e com certeza voltaria novamente!",
   },
@@ -263,6 +277,13 @@ export const REVIEWS: ReviewItem[] = [
     author: "Michel Bezerra dos Santos",
     stars: 5,
     source: "Avaliação no Google",
+    avatarUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80",
+    cutPhoto: {
+      title: "Fade Raspado Limpo",
+      webpSrc: "/assets/aistudio/06-corte-com-degrade-google_7796ac22.webp",
+      fallbackSrc: "/assets/aistudio/06-corte-com-degrade-google_7796ac22.jpg",
+      alt: "Corte fade realizado para Michel Bezerra na Barbearia Invictus",
+    },
     quote:
       "Deixo a minha avaliação sobre o Kauan, excelente profissional, sempre atento aos meus pedidos e entregando um trabalho de qualidade. Além de ser um ótimo barbeiro, oferece um atendimento e uma recepção no salão que fazem toda a diferença.",
   },
@@ -271,6 +292,13 @@ export const REVIEWS: ReviewItem[] = [
     author: "Ivanusa Vieira",
     stars: 5,
     source: "Avaliação no Google",
+    avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&h=120&q=80",
+    cutPhoto: {
+      title: "Corte Infantil com Desenho",
+      webpSrc: "/assets/aistudio/08-corte-infantil-com-desenho-google_2667c952.webp",
+      fallbackSrc: "/assets/aistudio/08-corte-infantil-com-desenho-google_2667c952.jpg",
+      alt: "Corte infantil realizado para o filho de Ivanusa na Barbearia Invictus",
+    },
     quote:
       "Levei meu filho para conhecer a barbearia do Kaua, e achamos o atendimento maravilhoso, preços justos e excelente ambiente, muito bem receptivo.",
   },
@@ -279,6 +307,13 @@ export const REVIEWS: ReviewItem[] = [
     author: "Marcos Junior",
     stars: 5,
     source: "Avaliação no Google",
+    avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=120&h=120&q=80",
+    cutPhoto: {
+      title: "Risco Personalizado na Lateral",
+      webpSrc: "/assets/aistudio/07-corte-com-risco-na-lateral-google_2a341c69.webp",
+      fallbackSrc: "/assets/aistudio/07-corte-com-risco-na-lateral-google_2a341c69.jpg",
+      alt: "Corte com risco na lateral para Marcos Junior na Barbearia Invictus",
+    },
     quote:
       "Pessoal muito atencioso, ambiente limpo e super fácil localização. Os profissionais dedicados e virei cliente fiel.",
   },
@@ -287,6 +322,13 @@ export const REVIEWS: ReviewItem[] = [
     author: "Daniel Dan",
     stars: 5,
     source: "Avaliação no Google",
+    avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&h=120&q=80",
+    cutPhoto: {
+      title: "Corte Cacheado & Fade",
+      webpSrc: "/assets/aistudio/05-corte-cacheado-com-degrade-google_525d5b60.webp",
+      fallbackSrc: "/assets/aistudio/05-corte-cacheado-com-degrade-google_525d5b60.jpg",
+      alt: "Corte cacheado com degradê para Daniel Dan na Barbearia Invictus",
+    },
     quote:
       "É um ambiente super agradável, excelentes profissionais e o trabalho sem dúvida é de qualidade.",
   },
@@ -295,6 +337,13 @@ export const REVIEWS: ReviewItem[] = [
     author: "Samuel Gabarão Guimarães",
     stars: 5,
     source: "Avaliação no Google",
+    avatarUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&h=120&q=80",
+    cutPhoto: {
+      title: "Corte Platinado & Degradê",
+      webpSrc: "/assets/aistudio/03-corte-platinado-com-degrade_c757add4.webp",
+      fallbackSrc: "/assets/aistudio/03-corte-platinado-com-degrade_c757add4.jpg",
+      alt: "Corte platinado realizado para Samuel Gabarão na Barbearia Invictus",
+    },
     quote:
       "Os dois barbeiros cortam super bem, tanto o Kauan, quanto o Leonardo, super indico, cortam super bem e atendem bem também, são bem gentis.",
   },

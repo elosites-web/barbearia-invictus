@@ -149,18 +149,18 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
               className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37] rounded-lg shrink-0"
               aria-label="Barbearia Invictus - Início"
             >
-              <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-[#d4af37]/40 shadow-md group-hover:border-[#d4af37] group-hover:scale-105 transition-all bg-[#15171e]">
+              <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-[#d4af37]/40 shadow-md group-hover:border-[#d4af37] group-hover:scale-105 transition-all bg-[#15171e] p-0.5 flex items-center justify-center">
                 <picture>
                   <source srcSet={BARBEARIA_CONFIG.logoPath} type="image/webp" />
                   <source srcSet={BARBEARIA_CONFIG.logoFallbackPath} type="image/png" />
                   <img
-                    src={BARBEARIA_CONFIG.logoPath}
+                    src={BARBEARIA_CONFIG.logoFallbackPath}
                     alt="Logotipo Barbearia Invictus"
                     width={44}
                     height={44}
                     loading="eager"
                     decoding="sync"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     referrerPolicy="no-referrer"
                   />
                 </picture>
