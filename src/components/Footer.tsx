@@ -288,6 +288,41 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
+        {/* Assinatura Oficial ēloSites */}
+        <div className="mt-6 pt-5 border-t border-[#1b1f2b]/60 flex items-center justify-center select-none">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2.5 text-[10px] sm:text-[11px] text-[#8c92a0] font-medium tracking-wider text-center">
+            {/* Bloco 1 (Texto + Logotipo) */}
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2.5 whitespace-nowrap">
+              <span className="uppercase text-[#8c92a0] tracking-wider shrink-0">
+                CRIADO E DESENVOLVIDO POR
+              </span>
+              <a
+                href="https://elosites.ia.br"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center shrink-0 transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]/60 rounded"
+                title="ēloSites - O melhor site pelo melhor preço"
+                aria-label="Acessar o site oficial da ēloSites"
+              >
+                <img
+                  src="/assets/aistudio/logo.webp"
+                  alt="Logotipo ēloSites"
+                  width={640}
+                  height={158}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-4 sm:h-5 md:h-5 w-auto object-contain drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+                />
+              </a>
+            </div>
+
+            {/* Bloco 2: Linha 2 no mobile / Continuação em linha única no desktop */}
+            <span className="uppercase text-[#8c92a0] tracking-wider shrink-0 whitespace-nowrap">
+              O MELHOR SITE PELO MELHOR PREÇO
+            </span>
+          </div>
+        </div>
+
       </div>
     </footer>
   );
