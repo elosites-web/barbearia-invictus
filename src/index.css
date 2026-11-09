@@ -149,6 +149,22 @@
 }
 
 /* =========================================================================
+   SCROLL INDICATOR ANIMATION (Seta pulando suavemente para rolar a página)
+   ========================================================================= */
+@keyframes scroll-bounce-soft {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-scroll-bounce {
+  animation: scroll-bounce-soft 1.8s ease-in-out infinite;
+}
+
+/* =========================================================================
    ANIMATED ICONS (Micro-interações e Animações em TODOS os Ícones)
    ========================================================================= */
 @keyframes icon-float-gentle {

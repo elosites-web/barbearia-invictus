@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BARBEARIA_CONFIG, GALLERY_PHOTOS } from "../data/barbeariaData";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin, ChevronDown } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
 export const Hero: React.FC = () => {
@@ -259,6 +259,22 @@ export const Hero: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Scroll indicator with gentle bouncing arrow at bottom of Hero */}
+      <a
+        href="#servicos"
+        aria-label="Rolar para os serviços da Barbearia Invictus"
+        className={`absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 group transition-all duration-300 ${
+          scrollY > 70 ? "opacity-0 pointer-events-none translate-y-2" : "opacity-90 hover:opacity-100"
+        }`}
+      >
+        <span className="text-[10px] font-semibold tracking-widest uppercase font-serif text-[#a0a6b5] group-hover:text-[#f3e5ab] transition-colors">
+          Serviços
+        </span>
+        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[#d4af37]/40 bg-[#12151d]/85 backdrop-blur-sm flex items-center justify-center text-[#d4af37] group-hover:border-[#d4af37] group-hover:text-[#f3e5ab] shadow-lg shadow-black/40 animate-scroll-bounce transition-colors">
+          <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        </div>
+      </a>
     </section>
   );
 };
