@@ -263,7 +263,6 @@ export const REVIEWS: ReviewItem[] = [
     author: "Kawa Fonseca",
     stars: 5,
     source: "Avaliação no Google",
-    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80",
     cutPhoto: {
       title: "Degradê com Textura",
       webpSrc: "/assets/aistudio/02-degrade-com-topo-texturizado_43de514e.webp",
@@ -278,7 +277,6 @@ export const REVIEWS: ReviewItem[] = [
     author: "Michel Bezerra dos Santos",
     stars: 5,
     source: "Avaliação no Google",
-    avatarUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80",
     cutPhoto: {
       title: "Fade Raspado Limpo",
       webpSrc: "/assets/aistudio/06-corte-com-degrade-google_7796ac22.webp",
@@ -293,7 +291,6 @@ export const REVIEWS: ReviewItem[] = [
     author: "Ivanusa Vieira",
     stars: 5,
     source: "Avaliação no Google",
-    avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&h=120&q=80",
     cutPhoto: {
       title: "Corte Infantil com Desenho",
       webpSrc: "/assets/aistudio/08-corte-infantil-com-desenho-google_2667c952.webp",
@@ -308,7 +305,6 @@ export const REVIEWS: ReviewItem[] = [
     author: "Marcos Junior",
     stars: 5,
     source: "Avaliação no Google",
-    avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=120&h=120&q=80",
     cutPhoto: {
       title: "Risco Personalizado na Lateral",
       webpSrc: "/assets/aistudio/07-corte-com-risco-na-lateral-google_2a341c69.webp",
@@ -323,7 +319,6 @@ export const REVIEWS: ReviewItem[] = [
     author: "Daniel Dan",
     stars: 5,
     source: "Avaliação no Google",
-    avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&h=120&q=80",
     cutPhoto: {
       title: "Corte Cacheado & Fade",
       webpSrc: "/assets/aistudio/05-corte-cacheado-com-degrade-google_525d5b60.webp",
@@ -338,7 +333,6 @@ export const REVIEWS: ReviewItem[] = [
     author: "Samuel Gabarão Guimarães",
     stars: 5,
     source: "Avaliação no Google",
-    avatarUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&h=120&q=80",
     cutPhoto: {
       title: "Corte Platinado & Degradê",
       webpSrc: "/assets/aistudio/03-corte-platinado-com-degrade_c757add4.webp",
@@ -390,28 +384,75 @@ export const FAQ_ITEMS: FaqItem[] = [
 
 export const COMMERCIAL_CHECKLIST = [
   {
+    itemNumber: 1,
+    topic: "Logotipo Oficial",
+    status: "Aplicado",
+    statusType: "success" as const,
+    details:
+      "O logotipo oficial disponibilizado para a proposta já está utilizado nos elementos de identidade visual do site (cabeçalho, rodapé e capa interativa do mapa). Caso exista posteriormente um arquivo SVG oficial, a substituição poderá ser considerada.",
+  },
+  {
+    itemNumber: 2,
+    topic: "Contato e WhatsApp",
+    status: "Configurado — testar antes da publicação",
+    statusType: "warning" as const,
+    details:
+      "O telefone informado ((11) 94268-8432) está configurado nos canais de contato e nos botões de agendamento com mensagens personalizadas por serviço. Confirmar com o proprietário se o número continua correto e se todos os links direcionam para a conversa esperada.",
+  },
+  {
+    itemNumber: 3,
     topic: "Horários de Funcionamento",
     status: "A confirmar",
-    details: "Utilizamos os horários registrados no Perfil do Google como referência provisória. Confirmar com Kauan antes da publicação definitiva.",
+    statusType: "warning" as const,
+    details:
+      "Existem divergências entre os horários exibidos no site antigo, os dados do Perfil da Empresa no Google e os horários extraídos do catálogo AppBarber. Nenhum desses horários deve ser tratado como definitivo. Solicitar ao proprietário a validação dos dias, horários e intervalos de almoço antes da publicação.",
   },
   {
-    topic: "Logotipo Vetorial Oficial",
-    status: "Pronto / Emblema aplicado",
-    details: "O arquivo logotipo-invictus.png oficial está implementado no cabeçalho e footer. Se houver arquivo em curvas (.SVG), a substituição é imediata.",
+    itemNumber: 4,
+    topic: "Serviços, Combinações e Preços",
+    status: "A confirmar",
+    statusType: "warning" as const,
+    details:
+      "O protótipo apresenta os principais serviços e valores informados inicialmente (Corte R$ 35, Barba R$ 25, Desenho R$ 15, Química a partir de R$ 60). O catálogo AppBarber também contém serviços combinados, procedimentos adicionais e preços sob consulta. Confirmar com Kauan quais serviços, combinações, durações e preços deverão aparecer no site definitivo.",
   },
   {
-    topic: "Telefone & WhatsApp",
-    status: "Configurado",
-    details: "(11) 94268-8432 está ativo em todos os botões e links de agendamento.",
+    itemNumber: 5,
+    topic: "Catálogo e Agendamento AppBarber",
+    status: "Integração a definir",
+    statusType: "neutral" as const,
+    details:
+      "A Barbearia Invictus já utiliza o AppBarber para apresentar seu catálogo de serviços e receber agendamentos. A nova proposta não substitui o aplicativo nem sugere ter sistema próprio. Avaliar com o proprietário a inclusão de um botão direcionando ao link individual da barbearia no AppBarber, mantendo o WhatsApp como canal direto já em funcionamento.",
   },
   {
-    topic: "Autorização de Imagens",
-    status: "Pendente com o proprietário",
-    details: "Revisar autorização de uso de imagem dos clientes retratados nas fotografias reais, em especial a imagem de menor de idade (corte infantil).",
+    itemNumber: 6,
+    topic: "Autorização de Uso das Fotografias",
+    status: "Pendente de confirmação",
+    statusType: "warning" as const,
+    details:
+      "Confirmar que a barbearia possui autorização adequada para utilização das fotografias dos clientes e dos trabalhos apresentados no site, especialmente a fotografia que retrata um menor de idade (corte infantil), para a qual deve existir autorização do responsável legal.",
   },
   {
-    topic: "Domínio Próprio & Google Meu Negócio",
-    status: "Pronto para vincular",
-    details: "Preparado para apontar para domínio próprio (ex: barbeariainvictus.com.br) e incluir botão 'Agendar' diretamente no Perfil da Empresa no Google.",
+    itemNumber: 7,
+    topic: "Domínio e Publicação",
+    status: "A definir",
+    statusType: "neutral" as const,
+    details:
+      "A proposta está sendo apresentada em ambiente de protótipo de demonstração. A publicação definitiva dependerá da aprovação do proprietário, definição do domínio (o endereço barbeariainvictus.com.br é citado no código como referência preliminar, sem contratação confirmada), configuração de hospedagem e validação dos dados comerciais.",
+  },
+  {
+    itemNumber: 8,
+    topic: "Google e Presença Local",
+    status: "Preparação técnica inicial — validação pendente",
+    statusType: "neutral" as const,
+    details:
+      "O projeto possui elementos de SEO local e dados estruturados iniciais (Schema.org BarberShop com endereço, coordenadas e catálogo). Antes da publicação, será necessário revisar os dados comerciais, verificar o Perfil da Empresa no Google, validar os links e conferir a consistência das informações.",
+  },
+  {
+    itemNumber: 9,
+    topic: "Privacidade e Publicação",
+    status: "Revisão necessária antes da publicação",
+    statusType: "warning" as const,
+    details:
+      "A política de privacidade e os textos relacionados ao tratamento de dados devem ser revisados de acordo com os recursos efetivamente utilizados no site e as informações do responsável pelo estabelecimento (Kauan). Evitar declarações de conformidade jurídica definitiva sem avaliação adequada.",
   },
 ];
