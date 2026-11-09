@@ -48,10 +48,36 @@ export const Hero: React.FC = () => {
   const offsetFloatingCard1 = prefersReducedMotion ? 0 : scrollY * 0.42;
   const offsetFloatingCard2 = prefersReducedMotion ? 0 : scrollY * 0.52;
 
+  const handleScrollToServicos = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const menuServicosLink = document.querySelector('nav a[href="#servicos"]') as HTMLAnchorElement | null;
+    if (menuServicosLink) {
+      menuServicosLink.click();
+      return;
+    }
+
+    const targetElement = document.getElementById("servicos");
+    if (targetElement) {
+      const headerEl = document.querySelector("header");
+      const headerOffset = headerEl ? Math.round(headerEl.getBoundingClientRect().height) : 68;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: "smooth",
+      });
+      try {
+        window.history.replaceState(null, "", "#servicos");
+      } catch {
+        // Ignore in restrictive environments
+      }
+    }
+  };
+
   return (
     <section
       id="inicio"
-      className="relative min-h-[92vh] lg:min-h-screen pt-28 pb-24 flex items-center justify-center overflow-hidden bg-transparent"
+      className="relative min-h-[92vh] lg:min-h-screen pt-28 pb-24 flex items-center justify-center overflow-hidden bg-transparent scroll-mt-24"
     >
       {/* Background subtle radial glow with slow deep parallax */}
       <div
@@ -120,6 +146,7 @@ export const Hero: React.FC = () => {
 
                 <a
                   href="#servicos"
+                  onClick={handleScrollToServicos}
                   className="btn-3d btn-3d-dark inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-[#e5e7eb] bg-[#171a22] hover:bg-[#20242e] border border-[#d4af37]/30 hover:border-[#d4af37]/60 rounded-md whitespace-nowrap"
                 >
                   <span>CONHECER NOSSOS SERVIÇOS</span>
@@ -263,6 +290,7 @@ export const Hero: React.FC = () => {
       {/* Scroll indicator with gentle bouncing arrow at bottom of Hero */}
       <a
         href="#servicos"
+        onClick={handleScrollToServicos}
         aria-label="Rolar para os serviços da Barbearia Invictus"
         className={`absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 group transition-all duration-300 ${
           scrollY > 70 ? "opacity-0 pointer-events-none translate-y-2" : "opacity-90 hover:opacity-100"

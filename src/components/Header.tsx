@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { BARBEARIA_CONFIG } from "../data/barbeariaData";
 import {
@@ -25,34 +25,146 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
   const [activeSection, setActiveSection] = useState<string>("inicio");
   const [mounted, setMounted] = useState(false);
 
+  const isClickNavigatingRef = useRef(false);
+  const clickNavTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Track window scroll and active section for anchor optimization
+  // Clean up click navigation timer on unmount
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    return () => {
+      if (clickNavTimerRef.current) {
+        clearTimeout(clickNavTimerRef.current);
+      }
+    };
+  }, []);
 
-      const sectionIds = ["inicio", "servicos", "trabalho", "experiencia", "avaliacoes", "localizacao", "faq"];
-      const scrollPosition = window.scrollY + 140;
+  // Unified navigation handler for both desktop and mobile items
+  const navigateToSection = useCallback((sectionId: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
 
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(sectionIds[i]);
-          break;
+    // Set active state immediately for instant responsive feedback
+    setActiveSection(sectionId);
+
+    // Close mobile menu drawer if open
+    setMobileMenuOpen(false);
+
+    // Release body scroll lock immediately so smooth scroll executes without impediment
+    document.body.style.overflow = "";
+
+    // Temporarily ignore scroll observer updates during smooth scroll animation
+    isClickNavigatingRef.current = true;
+    if (clickNavTimerRef.current) {
+      clearTimeout(clickNavTimerRef.current);
+    }
+    clickNavTimerRef.current = setTimeout(() => {
+      isClickNavigatingRef.current = false;
+    }, 900);
+
+    const targetElement = document.getElementById(sectionId);
+    if (targetElement) {
+      if (sectionId === "inicio") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const headerEl = document.querySelector("header");
+        const headerOffset = headerEl ? Math.round(headerEl.getBoundingClientRect().height) : 68;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: "smooth",
+        });
+      }
+    }
+
+    try {
+      window.history.replaceState(null, "", `#${sectionId}`);
+    } catch {
+      // Ignore in restrictive iframe environments
+    }
+  }, []);
+
+  // IntersectionObserver to accurately track the active section based on scroll position
+  useEffect(() => {
+    const sectionIds = ["inicio", "servicos", "trabalho", "experiencia", "avaliacoes", "localizacao", "faq"];
+    const sectionElements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sectionElements.length === 0) return;
+
+    const updateActiveSectionFromViewport = () => {
+      if (isClickNavigatingRef.current) return;
+
+      if (window.scrollY < 80) {
+        setActiveSection("inicio");
+        return;
+      }
+
+      // If near the bottom of the page on long scrollable document, highlight the last section (faq)
+      if (
+        document.documentElement.scrollHeight > window.innerHeight * 1.2 &&
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60
+      ) {
+        setActiveSection("faq");
+        return;
+      }
+
+      // Find section currently covering the viewport header focus line (~120px)
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120 && rect.bottom > 120) {
+            setActiveSection(id);
+            return;
+          }
         }
       }
     };
 
+    const observer = new IntersectionObserver(
+      () => {
+        updateActiveSectionFromViewport();
+      },
+      {
+        root: null,
+        rootMargin: "-80px 0px -40% 0px",
+        threshold: [0, 0.2, 0.5],
+      }
+    );
+
+    sectionElements.forEach((el) => observer.observe(el));
+
+    let ticking = false;
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+
+      if (isClickNavigatingRef.current) return;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateActiveSectionFromViewport();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    updateActiveSectionFromViewport();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   // Lock page scroll when mobile menu is open, allow menu scroll freely (especially in horizontal/landscape view)
-  // IMPORTANT: Only set body overflow to avoid breaking document scroll offsets or smooth-scroll behavior
   useEffect(() => {
     if (mobileMenuOpen) {
       const originalOverflow = document.body.style.overflow;
@@ -118,10 +230,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
     },
   ];
 
-  const handleNavClick = () => {
-    setMobileMenuOpen(false);
-  };
-
   const toggleMobileMenu = (e: React.MouseEvent) => {
     e.stopPropagation();
     setMobileMenuOpen((prev) => !prev);
@@ -130,22 +238,59 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        {/* Background layer with blur and border - separate from header container to prevent trapping fixed children */}
+        {/* Layer 1: Mirrored Glass Surface (Glassmorphism, chromatic gradient & specular reflections) */}
         <div
-          className={`absolute inset-0 pointer-events-none transition-all duration-300 ${
-            isScrolled
-              ? "bg-[#0b0c10]/95 backdrop-blur-md border-b border-[#d4af37]/25 shadow-2xl py-3"
-              : "bg-gradient-to-b from-[#0b0c10]/95 via-[#0b0c10]/80 to-transparent py-4 sm:py-5"
+          className={`absolute inset-0 pointer-events-none transition-all duration-500 overflow-hidden ${
+            isScrolled ? "header-glass-backdrop" : "header-glass-backdrop-unscrolled"
           }`}
-        />
+        >
+          {/* Layer 1A: Specular Radial Sheen - Ambient soft gold aura reflected on polished glass */}
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+            style={{
+              background:
+                "radial-gradient(ellipse 75% 90% at 50% -15%, rgba(212, 175, 55, 0.12) 0%, rgba(243, 229, 171, 0.04) 45%, transparent 75%)",
+              opacity: isScrolled ? 0.95 : 0.75,
+            }}
+          />
 
+          {/* Layer 1B: Specular Diagonal Reflection Streak - simulating polished mirrored glass sheen */}
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+            style={{
+              background:
+                "linear-gradient(112deg, transparent 20%, rgba(255, 255, 255, 0.02) 40%, rgba(255, 255, 255, 0.06) 48%, rgba(212, 175, 55, 0.07) 52%, rgba(255, 255, 255, 0.02) 60%, transparent 80%)",
+              opacity: isScrolled ? 0.85 : 0.65,
+            }}
+          />
+
+          {/* Layer 1C: Polished Top Bevel Highlight - razor-thin luminous sheen along the upper edge of the glass */}
+          <div
+            className="absolute top-0 inset-x-0 h-[1px] pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.10) 12%, rgba(212, 175, 55, 0.40) 35%, rgba(243, 229, 171, 0.70) 50%, rgba(212, 175, 55, 0.40) 65%, rgba(255, 255, 255, 0.10) 88%, transparent 100%)",
+            }}
+          />
+
+          {/* Layer 1D: Subtle Luminous Bottom Edge Highlight */}
+          <div
+            className="absolute bottom-0 inset-x-0 h-[1px] pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.15) 15%, rgba(212, 175, 55, 0.45) 50%, rgba(212, 175, 55, 0.15) 85%, transparent 100%)",
+            }}
+          />
+        </div>
+
+        {/* Layer 2: Main Navigation Container (Target: header > div:nth-of-type(2)) */}
         <div className={`relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${isScrolled ? "py-2.5 sm:py-3" : "py-3.5 sm:py-4"}`}>
           <div className="flex items-center justify-between gap-4 sm:gap-8">
             
             {/* Zone 1: Brand Zone */}
             <a
               href="#inicio"
-              onClick={handleNavClick}
+              onClick={(e) => navigateToSection("inicio", e)}
               className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37] rounded-lg shrink-0"
               aria-label="Barbearia Invictus - Início"
             >
@@ -184,6 +329,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
                   <a
                     key={link.href}
                     href={link.href}
+                    onClick={(e) => navigateToSection(link.id, e)}
                     className={`group relative flex items-center gap-1.5 py-1 transition-all duration-200 whitespace-nowrap ${
                       isActive ? "text-[#f3e5ab] font-semibold" : "text-[#9ca3af] hover:text-[#f5f5f7]"
                     }`}
@@ -282,7 +428,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={handleNavClick}
+                    onClick={(e) => navigateToSection(link.id, e)}
                     className={`group py-2.5 px-3.5 rounded-lg flex items-center justify-between border-b border-[#1f232d] transition-all duration-200 ${
                       isActive
                         ? "text-[#f3e5ab] bg-[#1a1e27] border-l-2 border-l-[#d4af37] font-semibold shadow-inner"
@@ -314,7 +460,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommercialModal }) => {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={handleNavClick}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="btn-3d btn-3d-gold flex items-center justify-center gap-2 w-full py-3.5 text-sm font-bold text-[#0d0f12] bg-[#d4af37] hover:bg-[#ecc94b] rounded-md group shadow-lg"
                 >
                   <Calendar className="w-4 h-4 shrink-0 text-[#0d0f12] animate-calendar-beat group-hover:scale-125 transition-transform" />

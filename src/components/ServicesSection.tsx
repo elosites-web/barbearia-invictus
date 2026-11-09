@@ -6,9 +6,9 @@ import { FadeInSection } from "./FadeInSection";
 
 export const ServicesSection: React.FC = () => {
   return (
-    <section id="servicos" className="py-24 bg-transparent relative scroll-mt-24">
-      {/* Decorative subtle divider */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+    <section id="servicos" className="pt-10 sm:pt-14 pb-20 sm:pb-24 bg-transparent relative scroll-mt-[64px] sm:scroll-mt-[68px]">
+      {/* Decorative subtle divider aligned with header bottom on anchor */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/35 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
