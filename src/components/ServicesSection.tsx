@@ -39,11 +39,14 @@ export const ServicesSection: React.FC = () => {
                 className="h-full flex flex-col"
               >
                 <div
-                  className={`service-card relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl card-smoke-glass h-full ${
+                  className={`service-card fade-in slide-in relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl card-smoke-glass h-full ${
                     isFeatured
                       ? "service-card-featured ring-1 ring-[#d4af37]/40"
                       : ""
                   }`}
+                  style={{
+                    animationDelay: `${index * 120}ms`,
+                  }}
                 >
                   {/* Featured Badge floating gently over the center of the top line */}
                   {service.tag && (

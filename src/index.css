@@ -584,3 +584,47 @@ a.btn-3d-dark {
   }
 }
 
+/* =========================================================================
+   FADE-IN & SLIDE-IN CARD ANIMATIONS
+   Animação suave e refinada de slide-in e fade-in para exibição dinâmica dos cards
+   ========================================================================= */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+.slide-in {
+  animation: fadeInSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+/* Preserva a interatividade do hover dos service cards quando fade-in estiver ativo */
+.service-card.fade-in:hover {
+  transform: translateY(-6px) scale(1.025) !important;
+}
+
+.service-card-featured.fade-in:hover {
+  transform: translateY(-8px) scale(1.035) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .slide-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+

@@ -51,7 +51,7 @@ export const FadeInSection: React.FC<FadeInSectionProps> = ({
   }, []);
 
   const getTransform = () => {
-    if (isVisible) return "translate-y-0 opacity-100";
+    if (isVisible) return "translate-y-0 opacity-100 fade-in";
     if (direction === "up") return "translate-y-8 opacity-0";
     return "opacity-0";
   };
