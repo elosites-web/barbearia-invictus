@@ -166,7 +166,7 @@ export const Hero: React.FC = () => {
                 <p className="text-xs text-[#a0a6b5] mt-0.5">Trabalhos Reais</p>
               </div>
               <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1 text-center flex flex-col items-center justify-center">
-                <p className="text-xl sm:text-2xl font-bold font-serif text-[#f3e5ab] tabular-nums">5.0 ★</p>
+                <p className="text-xl sm:text-2xl font-bold font-serif text-[#f3e5ab] tabular-nums">4.9 ★</p>
                 <p className="text-xs text-[#a0a6b5] mt-0.5">Avaliação Google</p>
               </div>
               <div className="p-2.5 rounded-xl card-smoke-glass transition-transform hover:-translate-y-1 text-center flex flex-col items-center justify-center">

@@ -45,6 +45,11 @@ export interface AmenityItem {
   title: string;
   description: string;
   iconName: string;
+  image?: {
+    webpSrc: string;
+    fallbackSrc: string;
+    alt: string;
+  };
 }
 
 export interface FaqItem {
@@ -218,12 +223,22 @@ export const AMENITIES: AmenityItem[] = [
     title: "Atendimento Presencial e Acolhedor",
     description: "Recepção atenciosa, pontualidade e dedicação total ao que você pedir.",
     iconName: "UserCheck",
+    image: {
+      webpSrc: "/assets/aistudio/05-emblema-invictus-recorte-de-referencia_3fa9ec85.webp",
+      fallbackSrc: "/assets/aistudio/05-emblema-invictus-recorte-de-referencia_3fa9ec85.jpg",
+      alt: "Atendimento acolhedor e exclusivo na Barbearia Invictus",
+    },
   },
   {
     id: "climatizado",
     title: "Ambiente Confortável",
     description: "Espaço limpo, higienizado e pensado para o seu bem-estar durante o atendimento.",
     iconName: "Sparkles",
+    image: {
+      webpSrc: "/assets/aistudio/02-degrade-com-topo-texturizado_43de514e.webp",
+      fallbackSrc: "/assets/aistudio/02-degrade-com-topo-texturizado_43de514e.jpg",
+      alt: "Ambiente agradável e corte de alta precisão na Barbearia Invictus",
+    },
   },
   {
     id: "bebidas",
@@ -242,6 +257,11 @@ export const AMENITIES: AmenityItem[] = [
     title: "Atendimento para Crianças",
     description: "Paciência, cuidado e cortes divertidos com desenhos para os pequenos.",
     iconName: "Smile",
+    image: {
+      webpSrc: "/assets/aistudio/08-corte-infantil-com-desenho-google_2667c952.webp",
+      fallbackSrc: "/assets/aistudio/08-corte-infantil-com-desenho-google_2667c952.jpg",
+      alt: "Atendimento e corte infantil com desenho personalizado na Barbearia Invictus",
+    },
   },
   {
     id: "cartoes",

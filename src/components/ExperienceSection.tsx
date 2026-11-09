@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AMENITIES } from "../data/barbeariaData";
 import {
   UserCheck,
@@ -11,6 +11,44 @@ import {
   ShieldCheck,
   Compass,
 } from "lucide-react";
+
+/**
+ * Componente otimizado de imagem para a seção de experiência com WebP, fallback JPEG,
+ * carregamento preguiçoso (lazy loading), decodificação assíncrona e placeholder shimmer.
+ */
+const LazyExperienceImage: React.FC<{
+  webpSrc: string;
+  fallbackSrc: string;
+  alt: string;
+  aspectClass?: string;
+}> = ({ webpSrc, fallbackSrc, alt, aspectClass = "aspect-[16/9]" }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className={`relative overflow-hidden rounded-xl bg-[#0f1218] border border-[#d4af37]/25 mt-4 ${aspectClass} group`}>
+      {!loaded && (
+        <div className="absolute inset-0 bg-gradient-to-r from-[#141722] via-[#222738] to-[#141722] animate-pulse" />
+      )}
+      <picture>
+        <source srcSet={webpSrc} type="image/webp" />
+        <source srcSet={fallbackSrc} type="image/jpeg" />
+        <img
+          src={webpSrc}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          onLoad={() => setLoaded(true)}
+          className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+          referrerPolicy="no-referrer"
+        />
+      </picture>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+    </div>
+  );
+};
 
 export const ExperienceSection: React.FC = () => {
   const getIcon = (iconName: string) => {
@@ -59,22 +97,39 @@ export const ExperienceSection: React.FC = () => {
             return (
               <div
                 key={item.id}
-                className={`p-7 rounded-2xl card-smoke-glass card-smoke-glass-hover flex flex-col justify-between ${
+                className={`p-6 sm:p-7 rounded-2xl card-smoke-glass card-smoke-glass-hover flex flex-col justify-between ${
                   isLarge
                     ? "md:col-span-2 lg:col-span-2 border-[#d4af37]/45 shadow-[0_0_30px_rgba(212,175,55,0.1)]"
                     : ""
                 }`}
               >
                 <div>
-                  <div className="w-13 h-13 rounded-xl bg-[#181d28]/90 border border-[#d4af37]/35 flex items-center justify-center mb-5 shadow-lg">
-                    {getIcon(item.iconName)}
+                  <div className="flex items-center justify-between gap-4 mb-4">
+                    <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-[#181d28]/90 border border-[#d4af37]/35 flex items-center justify-center shadow-lg shrink-0">
+                      {getIcon(item.iconName)}
+                    </div>
+                    {isLarge && (
+                      <span className="text-[11px] font-semibold text-[#f3e5ab] bg-[#d4af37]/15 border border-[#d4af37]/40 px-3 py-1 rounded-full uppercase tracking-wider">
+                        Experiência Invictus
+                      </span>
+                    )}
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-[#f5f5f7] mb-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  <h3 className="font-serif text-lg sm:text-xl font-bold text-[#f5f5f7] mb-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                     {item.title}
                   </h3>
                   <p className="text-sm text-[#b2b7c4] leading-relaxed">
                     {item.description}
                   </p>
+
+                  {/* Imagem com Lazy Loading, formato WebP e decodificação assíncrona */}
+                  {item.image && (
+                    <LazyExperienceImage
+                      webpSrc={item.image.webpSrc}
+                      fallbackSrc={item.image.fallbackSrc}
+                      alt={item.image.alt}
+                      aspectClass={isLarge ? "aspect-[21/9] sm:aspect-[24/9]" : "aspect-[16/9]"}
+                    />
+                  )}
                 </div>
 
                 {isLarge && (

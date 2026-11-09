@@ -202,8 +202,8 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
             <img
               src={photo.webpSrc}
               alt={photo.alt}
-              loading="eager"
-              decoding="sync"
+              loading="lazy"
+              decoding="async"
               className="max-h-[64dvh] landscape:max-h-[68dvh] sm:max-h-[70dvh] md:max-h-[72dvh] w-auto max-w-full object-contain select-none"
               referrerPolicy="no-referrer"
             />
